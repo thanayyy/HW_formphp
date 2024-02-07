@@ -23,7 +23,8 @@
         }
 
         table, th, td {
-            border: 1px solid #ddd;
+            border: 2px dashed black;
+            border-radius: 8px;
             width: 100%;
             border-collapse: collapse;
         }
