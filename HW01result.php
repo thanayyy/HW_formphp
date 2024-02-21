@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #808080;
+            background-color: #ECA72C;
             margin: 0;
             padding: 0;
             color: #fff;
@@ -47,12 +47,9 @@
         a {
             display: inline-block; /* เปลี่ยนเป็น inline-block เพื่อให้ลิงก์อยู่ในบรรทัดเดียวกันกับข้อความ */
             margin-top: 20px;
-            color: #4caf50;
             text-decoration: none;
-            font-weight: bold;
-            border: 2px solid #4caf50; /* เพิ่มเส้นขอบสีเขียว */
-            padding: 10px 20px; /* ปรับขนาดของปุ่ม */
-            transition: all 0.3s ease; /* เพิ่มการเปลี่ยนสีเบาะแสต์เมื่อ hover */
+            font-weight: bold; /* เพิ่มเส้นขอบสีเขียว */
+            padding: 10px 20px; /* ปรับขนาดของปุ่ม */ /* เพิ่มการเปลี่ยนสีเบาะแสต์เมื่อ hover */
         }
 
         a:hover {
@@ -67,30 +64,66 @@
         $fName = $_GET['fName'];
         $lName = $_GET['lName'];
         $gender = $_GET['gender'];
-        $religion = $_GET['religion'];
-        $address = $_GET['address'];
+        $email = $_GET['customerEmail'];
+        
         $pNum = $_GET['pNum'];
-        $lWork = $_GET['lWork'];
         $birthday = $_GET['birthday'];
-
-        // คำนวณอายุ
+        $address = $_GET['customerAddress'];
+                // คำนวณอายุ
         $currentDate = date("Y-m-d");
         $age = date_diff(date_create($birthday), date_create($currentDate))->y;
+
+        if(empty(trim($fName)) || empty(trim($lName)) || empty(trim($email)) || empty(trim($pNum)) || empty(trim($gender)) || empty(trim($address))){
+            echo "<script>alert('กรุณากรอกข้อมูลให้ครบถ้วน');history.back()</script>";
+            exit();
+        }
+        else if(!preg_match("/^[ก-ฯะ-์a-zA-Z]+$/", $fName)){
+            echo "<script>alert('Not use some character');history.back();</script>";
+            exit();
+        }
+        else if(!filter_var(trim($email),FILTER_VALIDATE_EMAIL)){
+            echo "<script>alert('$email is not a valid email address');history.back();</script>";
+            exit();
+        }
+        else if(!ctype_digit(trim($pNum))){
+            echo "<script>alert('กรุณกรอกหมายเลขโทรศัพท์ให้ถุกต้อง');history.back();</script>";
+            exit();
+        }
+
+        $hostname = "localhost";
+        $username = "root";
+        $password = "";
+        $dbName = "university";
+        $connectSQL = mysqli_connect($hostname,$username,$password);
+        if (!$connectSQL)
+            die("ไม่สามารถติดต่อกับ mySQL ได้");
+        
+        mysqli_select_db($connectSQL, $dbName) or die("ไม่สามารถเลือกฐานข้อมูล university ได้");
+        mysqli_query($connectSQL,"set character_set_connection=utf8mb4");
+        mysqli_query($connectSQL,"set character_set_client=utf8mb4");
+        mysqli_query($connectSQL,"set character_set_results=utf8mb4");
+        $sql = "insert into form(Name, Lastname, Email, Phone, Birthdate, Gender, Address) values ('$fName', '$lName', '$email', '$pNum', '$age', '$gender', '$address')";
+        mysqli_query($connectSQL, $sql) or die("insert ลงตาราง form มีข้อผิดพลาดเกินขึ้น".mysqli_error());
+        echo '<center>';
+        echo '<center><br><br><h2><b><font color="white" size="6">บันทึกข้อมูลลูกค้าชื่อ '.$fName.' เรียบร้อย</font></b></h2>';
+        echo '</center>';
+
+
 
         echo "<table align='center' width='50%'>";
         echo "<tr><td colspan='2' align='center'><h2>แบบฟอร์ม</h2></td></tr>";
         echo "<tr><td>ชื่อจริง :</td><td align='center'> <i>$fName</i></td></tr>";
         echo "<tr><td>นามสกุล :</td><td align='center'> <i>$lName</i></td></tr>";
         echo "<tr><td>เบอร์โทร:</td><td align='center'> <i>$pNum</i></td></tr>";
+        echo "<tr><td>E-mail:</td><td align='center'> <i>$email</i></td></tr>";
         echo "<tr><td>วันเกิด :</td><td align='center'> <i>$birthday</i></td></tr>";
         echo "<tr><td>อายุ :</td><td align='center'> <i>$age ปี</i></td></tr>";
-        echo "<tr><td>งานอดิเรก :</td><td align='center'> <i>$lWork</i></td></tr>";
         echo "<tr><td>เพศ :</td><td align='center'> <i>$gender</i></td></tr>";
-        echo "<tr><td>ศาสนา :</td><td align='center'> <i>$religion</i></td></tr>";
         echo "<tr><td>ที่อยู่:</td><td align='center'> <i>$address</i></td></tr>";
-        echo "</table>"
+        echo "</table>";
+        mysqli_close($connectSQL);
     ?>
-    <center><a href="HW01.php">กลับ</a></center>
+    <center><a href="form.php">กลับ</a></center>
 </body>
 
 </html>

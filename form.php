@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* เปลี่ยนสีพื้นหลังเป็นขาว */
+            background-color: #ECA72C; /* เปลี่ยนสีพื้นหลังเป็นขาว */
             margin: 0;
             padding: 0;
         }
@@ -95,15 +95,15 @@
             </tr>
             <tr>
                 <td>เบอร์โทร : </td>
-                <td><input type="text" name="pNum" size="20" value="" /></td>
+                <td><input type="text" name="pNum" size="20" minlength="9" maxlength="10" placeholder="Telephone Number" /></td>
             </tr>
             <tr>
                 <td>วันเกิด : </td>
                 <td><input type="date" name="birthday" required /></td>
             </tr>
             <tr>
-                <td>งานอดิเรก : </td>
-                <td><input type="text" name="lWork" size="20" value="" /></td>
+                <td>Email : </td>
+                <td><input type="text" name="customerEmail" size="20" placeholder="E-mail"></td>
             </tr>
             <tr>
                 <td>เพศ : </td>
@@ -113,17 +113,9 @@
                 </td>
             </tr>
             <tr>
-                <td>ศาสนา : </td>
-                <td align="center">
-                    <input type="radio" name="religion" value="พุทธ">พุทธ<br>
-                    <input type="radio" name="religion" value="คริสต์">คริสต์<br>
-                    <input type="radio" name="religion" value="อิสลาม">อิสลาม<br>
-                    <input type="radio" name="religion" value="ฮินดู">ฮินดู<br>
-                </td>
-            </tr>
-            <tr>
                 <td align="center">ที่อยู่:</td>
-                <td><textarea name="address" cols="50" rows="5"></textarea></td>
+                <td>
+                <textarea type="text" name="customerAddress" cols="48" rows="4" required></textarea></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">

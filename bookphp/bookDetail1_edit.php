@@ -16,6 +16,9 @@
         if (!$conn) {
             die("Failed to connect to the database");
         }
+        mysqli_query($conn,"set character_set_connection=utf8mb4");
+        mysqli_query($conn,"set character_set_client=utf8mb4");
+        mysqli_query($conn,"set character_set_results=utf8mb4");
         mysqli_select_db($conn, $dbName) or die("Can't choose database");
         if(isset($_GET['bookId'])) {
             $bookId = $_GET['bookId'];
