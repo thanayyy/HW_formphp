@@ -104,27 +104,23 @@
         mysqli_query($connectSQL,"set character_set_client=utf8mb4");
         mysqli_query($connectSQL,"set character_set_results=utf8mb4");
 
-        // $sql = "insert into form(Name, Lastname, Email, Phone, Birthdate, Gender, Address) values ('$fName', '$lName', '$email', '$pNum', '$age', '$gender', '$address')";
-        // $result = mysqli_query($connectSQL, $sql) or die("insert ลงตาราง form มีข้อผิดพลาดเกินขึ้น".mysqli_error());
+        $sql = "insert into form(Name, Lastname, Email, Phone, Birthdate, Gender, Address) values ('$fName', '$lName', '$email', '$pNum', '$age', '$gender', '$address')";
+        $result = mysqli_query($connectSQL, $sql) or die("insert ลงตาราง form มีข้อผิดพลาดเกินขึ้น".mysqli_error());
         echo '<center>';
         echo '<center><br><br><h2><b><font color="white" size="6">บันทึกข้อมูลลูกค้าชื่อ '.$fName.' เรียบร้อย</font></b></h2>';
         echo '</center>';
-        $sql1 = "select * from form";
-        $Read =  mysqli_query($connectSQL, $sql1);
-        while($rs = mysql_fetch_array($Read)){
-           
-            echo "<table align='center' width='50%'>";
-            echo "<tr><td colspan='2' align='center'><h2>แบบฟอร์ม</h2></td></tr>";
-            echo "<tr><td>ชื่อจริง :</td><td align='center'> <i> . $rs[0] . </i></td></tr>";
-            echo "<tr><td>นามสกุล :</td><td align='center'> <i>$lName</i></td></tr>";
-            echo "<tr><td>เบอร์โทร:</td><td align='center'> <i>$pNum</i></td></tr>";
-            echo "<tr><td>E-mail:</td><td align='center'> <i>$email</i></td></tr>";
-            echo "<tr><td>วันเกิด :</td><td align='center'> <i>$birthday</i></td></tr>";
-            echo "<tr><td>อายุ :</td><td align='center'> <i>$age ปี</i></td></tr>";
-            echo "<tr><td>เพศ :</td><td align='center'> <i>$gender</i></td></tr>";
-            echo "<tr><td>ที่อยู่:</td><td align='center'> <i>$address</i></td></tr>";
-            echo "</table>";
-        }
+        echo "<table align='center' width='50%'>";
+        echo "<tr><td colspan='2' align='center'><h2>แบบฟอร์ม</h2></td></tr>";
+        echo "<tr><td>ชื่อจริง :</td><td align='center'> <i>$fName</i></td></tr>";
+        echo "<tr><td>นามสกุล :</td><td align='center'> <i>$lName</i></td></tr>";
+        echo "<tr><td>เบอร์โทร:</td><td align='center'> <i>$pNum</i></td></tr>";
+        echo "<tr><td>E-mail:</td><td align='center'> <i>$email</i></td></tr>";
+        echo "<tr><td>วันเกิด :</td><td align='center'> <i>$birthday</i></td></tr>";
+        echo "<tr><td>อายุ :</td><td align='center'> <i>$age ปี</i></td></tr>";
+        echo "<tr><td>เพศ :</td><td align='center'> <i>$gender</i></td></tr>";
+        echo "<tr><td>ที่อยู่:</td><td colspan='2' align='center'> <i>$address</i></td></tr>";
+        echo "</table>";
+        
             mysqli_close($connectSQL);
             ?>
     <center><a href="form.php">กลับ</a></center>
